@@ -13,19 +13,19 @@ resource "aws_lambda_function" "example" {
 
   role = "${aws_iam_role.lambda_role.arn}"
 
-  handler = "hello_lambda.lambda_handler"
+  handler = "app.lambda_handler"
   runtime = "python3.6"
 
   environment {
     variables = {
-      greeting = "Hello"
+      greeting = "hello"
     }
   }
 }
 
 data "archive_file" "zip" {
   type        = "zip"
-  source_file = "../app/hello_lambda.py"
+  source_dir  = "../sam-app/.aws-sam/build/HelloWorldFunction/"
   output_path = "hello_lambda.zip"
 }
 
